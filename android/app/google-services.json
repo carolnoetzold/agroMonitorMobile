@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "706074086945",
+    "firebase_url": "https://agromonitor-42.firebaseio.com",
+    "project_id": "agromonitor-42",
+    "storage_bucket": "agromonitor-42.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:706074086945:android:59c359d3076b91fc",
+        "android_client_info": {
+          "package_name": "com.am"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "706074086945-a0ogm22mbqsa1mahmed13lgiuimh0por.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCEn6wiEsa427X7vuqSaQoneC9cLUEDuJs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
