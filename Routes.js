@@ -46,7 +46,7 @@ export default class Routes extends Component {
                         marginBottom: Platform.OS === 'android' ? -2.5 : 1,
                         width: Platform.OS === 'android' ? 22.5 : 25,
                         height: Platform.OS === 'android' ? 22.5 : 25,
-                        tintColor: focused ? '#61d800' : '#DDD',
+                        tintColor: focused ? '#1976D2' : '#DDD',
                     },
                 ]}
             />
@@ -57,7 +57,7 @@ export default class Routes extends Component {
         return (
             <Router>
                 <Stack key="root" hideNavBar>
-                    <Scene key='login' component={LoginView} title="Login" />
+                    {/* <Scene key='login' component={LoginView} title="Login" /> */}
 
                     <Tabs key="bottombar" tabBarPosition="bottom" tabBarStyle={{ backgroundColor: '#FFF' }} labelStyle={{ fontSize: 12, fontWeight: '600' }}>
                         <Scene key='home' component={Home} title="Inicio" icon={this.renderTabIcon} />
