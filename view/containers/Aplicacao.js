@@ -43,7 +43,7 @@ class Aplicacao extends Component {
                         flex: 1,
                         flexDirection: 'column',
                         justifyContent: 'space-between',
-                        margin: 5
+                        margin: 10
                     }}>
                     <View style={{ flexDirection: 'row' }}>
                         <Input label="Data:" value={this.state.data}/>
