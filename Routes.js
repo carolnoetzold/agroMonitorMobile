@@ -9,6 +9,8 @@ import Medicao from './view/containers/Medicao';
 import Settings from './view/containers/Settings';
 import LoginView from './view/containers/Login';
 
+import Insumos from './view/components/Insumos';
+
 let color = {
     grey_800: '#DDD',
     green: '#61d800'
@@ -62,7 +64,12 @@ export default class Routes extends Component {
                     <Tabs key="bottombar" tabBarPosition="bottom" tabBarStyle={{ backgroundColor: '#FFF' }} labelStyle={{ fontSize: 12, fontWeight: '600' }}>
                         <Scene key='home' component={Home} title="Inicio" icon={this.renderTabIcon} />
                         <Scene key='medicao' component={Medicao} title="Medição" icon={this.renderTabIcon} />
-                        <Scene key='aplicacao' component={Aplicacao} title="Aplicação" icon={this.renderTabIcon} />
+
+                        <Stack key='aplicacao' navigationBarStyle={[styles.navbar]}>
+                            <Scene key='aplicacao' component={Aplicacao} title="Aplicação" icon={this.renderTabIcon} />
+                            <Scene key='insumos' component={Insumos} title="Insumos" modal swipeEnabled={false} hideTabBar />
+                        </Stack>
+
                         <Scene key='settings' component={Settings} title="Opções" icon={this.renderTabIcon} />
                     </Tabs>
 
