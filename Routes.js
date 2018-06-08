@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
 import { View, Image, Platform, StyleSheet } from 'react-native';
+import { ToolbarButton } from './view/components';
 import { Store, medicao } from './redux';
 import { Router, Tabs, Scene, Stack, Actions } from 'react-native-router-flux';
 
 import Home from './view/containers/Home';
-import Aplicacao from './view/containers/Aplicacao';
-import Medicao from './view/containers/Medicao';
+import ListaAplicacao from './view/containers/listaAplicacao';
+import ListaMedicao from './view/containers/listaMedicao';
+import Aplicacao from './view/components/Aplicacao';
+import Medicao from './view/components/Medicao';
 import Settings from './view/containers/Settings';
 import LoginView from './view/containers/Login';
-
 import Insumos from './view/components/Insumos';
 
 let color = {
@@ -39,7 +41,6 @@ export default class Routes extends Component {
 
     renderTabIcon({ focused, title }) {
         const self = this;
-
         return (
             <Image
                 source={self.getIcon(title)}
@@ -63,11 +64,26 @@ export default class Routes extends Component {
 
                     <Tabs key="bottombar" tabBarPosition="bottom" tabBarStyle={{ backgroundColor: '#FFF' }} labelStyle={{ fontSize: 12, fontWeight: '600' }}>
                         <Scene key='home' component={Home} title="Inicio" icon={this.renderTabIcon} />
-                        <Scene key='medicao' component={Medicao} title="Medição" icon={this.renderTabIcon} />
 
-                        <Stack key='aplicacao' navigationBarStyle={[styles.navbar]}>
-                            <Scene key='aplicacao' component={Aplicacao} title="Aplicação" icon={this.renderTabIcon} />
+                        <Stack key='rootMedicao' title='Medições' navigationBarStyle={[styles.navbar]}>
+                            <Scene key='listaMedicao' initial component={ListaMedicao} title="Medição" icon={this.renderTabIcon}
+                                renderRightButton={() => {
+                                    return <ToolbarButton icon="plus" color="#000" onPress={() => {
+                                        Actions.medicao();
+                                    }} />
+                                }} />
+                            <Scene key='medicao' component={Medicao} title="Medição" modal swipeEnabled={false} hideTabBar />
+                        </Stack>
+
+                        <Stack key='rootaplicacao' title='Aplicações' navigationBarStyle={[styles.navbar]}>
+                        <Scene key='listaAplicacao' initial component={ListaAplicacao} title="Aplicação" icon={this.renderTabIcon}
+                                renderRightButton={() => {
+                                    return <ToolbarButton icon="plus" color="#000" onPress={() => {
+                                        Actions.aplicacao();
+                                    }} />
+                                }} />
                             <Scene key='insumos' component={Insumos} title="Insumos" modal swipeEnabled={false} hideTabBar />
+                            <Scene key='aplicacao' component={Aplicacao} title="Aplicação" modal swipeEnabled={false} hideTabBar />
                         </Stack>
 
                         <Scene key='settings' component={Settings} title="Opções" icon={this.renderTabIcon} />

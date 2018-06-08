@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, TextInput, View, Button, ScrollView, DatePickerAndroid, Picker } from 'react-native';
-import Input from '../components/Input';
+import Input from './Input';
 import firebase from 'react-native-firebase';
 import moment from 'moment';
 import Icon from 'react-native-vector-icons/Feather';
@@ -11,7 +11,7 @@ class Medicao extends Component {
         this.state = {
             data: moment().format("DD/MM/YYYY"),
             volume: "",
-            periodo: "matutino",
+            periodo: "Matutino",
             posto: "1"
         };
     }
@@ -63,9 +63,9 @@ class Medicao extends Component {
                             borderWidth: 1,
                         }}
                         onValueChange={(itemValue, itemIndex) => this.setState({ periodo: itemValue })}>
-                        <Picker.Item label="Matutino" value="matutino" />
-                        <Picker.Item label="Vespertino" value="vespertino" />
-                        <Picker.Item label="Noturno" value="noturno" />
+                        <Picker.Item label="Matutino" value="Matutino" />
+                        <Picker.Item label="Vespertino" value="Vespertino" />
+                        <Picker.Item label="Noturno" value="Noturno" />
                     </Picker>
 
                     <Input label="Volume:" value={this.state.volume} keyboardType="numeric" onChangeText={(text) => this.setState({ volume: text })} />

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, TextInput, View, Button, TouchableOpacity, ScrollView, Picker, DatePickerAndroid } from 'react-native';
+import { StyleSheet, Text, TextInput, View, Button, TouchableOpacity, ScrollView, Picker, DatePickerAndroid, Alert } from 'react-native';
 import { Mapper } from '../../redux';
-import Input from '../components/Input';
+import Input from './Input';
 import Icon from 'react-native-vector-icons/Feather';
-import Insumos from '../components/Insumos';
+import Insumos from './Insumos';
 import { Actions } from 'react-native-router-flux';
 import firebase from 'react-native-firebase';
 import moment from 'moment';
@@ -13,6 +13,7 @@ class Aplicacao extends Component {
         super(props)
         this.state = {
             data: moment().format("DD/MM/YYYY"),
+            insumo: "",
             talhao: "1",
             dosagem: "",
             area: "",
@@ -21,6 +22,16 @@ class Aplicacao extends Component {
     }
 
     componentDidMount() {
+        if (this.props.item) {
+            let item = this.props.item
+            this.setState({
+                data: moment(item.data, "DD/MM/YYYY").format("DD/MM/YYYY"),
+                insumo: item.insumo,
+                talhao: item.talhao.toString(),
+                dosagem: item.dosagem,
+                area: item.area ? item.area.toString() : ""
+            })
+        }
         const self = this
         const ref = firebase.database().ref('insumos');
         ref.on('value', function (snapshot) {
@@ -32,6 +43,7 @@ class Aplicacao extends Component {
                 })
             })
             self.setState({ itens })
+            if (self.state.insumo.length === 0 && itens.length > 0) self.setState({ insumo: itens[0].id })
         });
     }
 
@@ -46,7 +58,7 @@ class Aplicacao extends Component {
                         margin: 10
                     }}>
                     <View style={{ flexDirection: 'row' }}>
-                        <Input label="Data:" value={this.state.data}/>
+                        <Input label="Data:" value={this.state.data} />
                         <Icon name="calendar" size={30} color="#1976D2"
                             style={{ marginTop: 40 }}
                             value={this.state.data}
@@ -71,7 +83,7 @@ class Aplicacao extends Component {
                     </View>
                     <View style={{ flex: 1, flexDirection: 'row' }}>
                         <Picker
-                            selectedValue={this.state.language}
+                            selectedValue={this.state.insumo}
                             style={{
                                 backgroundColor: '#FFF',
                                 margin: 10,
@@ -83,7 +95,7 @@ class Aplicacao extends Component {
                                 width: 290,
                                 borderWidth: 1,
                             }}
-                            onValueChange={(itemValue, itemIndex) => this.setState({ language: itemValue })}>
+                            onValueChange={(itemValue, itemIndex) => this.setState({ insumo: itemValue })}>
                             {
                                 this.state.itens.map((item) => {
                                     return <Picker.Item key={item.id} label={item.descricao} value={item.id} />
@@ -97,13 +109,14 @@ class Aplicacao extends Component {
                             accessibilityLabel="Novo" />
                     </View>
                     <Input label="Talhão:" value={this.state.talhao} keyboardType="numeric" onChangeText={(text) => this.setState({ talhao: text })} />
-                    <Input label="Dosagem:" value={this.state.dosagem} keyboardType="numeric" onChangeText={(text) => this.setState({ dosagem: text })} />
+                    <Input label="Dosagem em KGS:" value={this.state.dosagem} keyboardType="numeric" onChangeText={(text) => this.setState({ dosagem: text })} />
                     <Input label="Área:" value={this.state.area} keyboardType="numeric" onChangeText={(text) => this.setState({ area: text })} />
 
                     <View style={{ flexDirection: 'row', justifyContent: 'center', margin: 5 }}>
                         <Button
                             onPress={() => {
                                 const aplicacao = {
+                                    insumo: this.state.insumo,
                                     talhao: parseFloat(this.state.talhao),
                                     dosagem: this.state.dosagem,
                                     area: this.state.area,
@@ -111,12 +124,14 @@ class Aplicacao extends Component {
                                     ano: moment(this.state.data, "DD/MM/YYYY").format("YYYY"),
                                     mes: moment(this.state.data, "DD/MM/YYYY").format("MM")
                                 }
-                                firebase.database().ref().child('aplicacao').push().set(aplicacao);
+                                let key = this.props.item ? this.props.item.id : firebase.database().ref('aplicacao').push().key;
+                                firebase.database().ref('aplicacao').child(key).set(aplicacao)
+
+                                Actions.pop()
                             }}
                             title="Salvar"
                             color="#1976D2"
                             accessibilityLabel="Salvar" />
-
                     </View>
                 </View>
             </ScrollView>
