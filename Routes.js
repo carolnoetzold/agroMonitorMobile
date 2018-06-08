@@ -28,7 +28,7 @@ export default class Routes extends Component {
 
     getIcon(name) {
         switch (name) {
-            case "Inicio":
+            case "Média":
                 return require('./view/assets/home.png');
             case "Medição":
                 return require('./view/assets/chuvas.png');
@@ -63,7 +63,7 @@ export default class Routes extends Component {
                     {/* <Scene key='login' component={LoginView} title="Login" /> */}
 
                     <Tabs key="bottombar" tabBarPosition="bottom" tabBarStyle={{ backgroundColor: '#FFF' }} labelStyle={{ fontSize: 12, fontWeight: '600' }}>
-                        <Scene key='home' component={Home} title="Inicio" icon={this.renderTabIcon} />
+                        <Scene key='home' component={Home} title="Média" icon={this.renderTabIcon} />
 
                         <Stack key='rootMedicao' title='Medições' navigationBarStyle={[styles.navbar]}>
                             <Scene key='listaMedicao' initial component={ListaMedicao} title="Medição" icon={this.renderTabIcon}

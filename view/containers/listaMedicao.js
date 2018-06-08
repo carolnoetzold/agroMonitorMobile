@@ -18,7 +18,7 @@ export default class ListaMedicao extends Component {
         const self = this
         const ref = firebase.database().ref('medicao');
         ref.on('value', function (snapshot) {
-            const itens = [];
+            var itens = [];
             snapshot.forEach((child) => {
                 itens.push({
                     id: child.key,
@@ -29,6 +29,7 @@ export default class ListaMedicao extends Component {
 
                 })
             })
+             itens = itens.reverse()
             self.setState({ itens })
         });
     }
@@ -37,7 +38,10 @@ export default class ListaMedicao extends Component {
 
     _renderItem = ({ item }) => (
 
-        <TouchableNativeFeedback>
+        <TouchableNativeFeedback
+            onPress={() => {
+                Actions.medicao({ item })
+            }}>
             <View style={styles.card}>
                 <Text style={styles.titulo}>{item.data}</Text>
                 <Text style={styles.valor}>Volume: {item.volume}</Text>
@@ -61,7 +65,6 @@ export default class ListaMedicao extends Component {
             </View>
         )
     }
-
 }
 
 const styles = StyleSheet.create({

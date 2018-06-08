@@ -126,7 +126,6 @@ class Aplicacao extends Component {
                                 }
                                 let key = this.props.item ? this.props.item.id : firebase.database().ref('aplicacao').push().key;
                                 firebase.database().ref('aplicacao').child(key).set(aplicacao)
-
                                 Actions.pop()
                             }}
                             title="Salvar"
@@ -139,15 +138,4 @@ class Aplicacao extends Component {
     }
 }
 
-const redux = {
-    props: state => {
-        return {
-        }
-    },
-    actions: dispatch => {
-        return {
-        }
-    }
-}
-
-export default Mapper(redux.props, redux.actions, Aplicacao);
+export default Aplicacao;

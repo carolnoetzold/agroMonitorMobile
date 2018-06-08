@@ -15,6 +15,7 @@ export default class Input extends Component {
                     <TextInput 
                         onFocus={this.props.onFocus}
                         value={this.props.value}
+                        selectTextOnFocus
                         onChangeText={this.props.onChangeText}
                         underlineColorAndroid={'transparent'}
                         placeholder={this.props.placeholder}

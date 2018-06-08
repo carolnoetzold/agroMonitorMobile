@@ -64,17 +64,16 @@ export default class ListaAplicacao extends Component {
 
     _renderItem = ({ item }) => (
         <TouchableNativeFeedback
-        onPress={()=>{
-            Actions.aplicacao({item})
-        }}
-        >
+            onPress={() => {
+                Actions.aplicacao({ item })
+            }}>
             <View style={styles.card}>
                 <Text style={styles.titulo}>{item.data}</Text>
                 <Text style={styles.valor}>Insumo - {this.getInsumoDesc(item.insumo)}</Text>
                 <Text style={styles.subtitulo}>Dose de {item.dosagem}KGS</Text>
                 <Text style={styles.subtitulo}>Aplicado no talhão {item.talhao}</Text>
                 <Text style={styles.subtitulo}>{item.area} de área</Text>
-            
+
             </View>
         </TouchableNativeFeedback>
     );
@@ -89,7 +88,6 @@ export default class ListaAplicacao extends Component {
             </View>
         )
     }
-
 }
 
 const styles = StyleSheet.create({

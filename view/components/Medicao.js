@@ -3,6 +3,7 @@ import { StyleSheet, Text, TextInput, View, Button, ScrollView, DatePickerAndroi
 import Input from './Input';
 import firebase from 'react-native-firebase';
 import moment from 'moment';
+import { Actions } from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/Feather';
 
 class Medicao extends Component {
@@ -15,6 +16,19 @@ class Medicao extends Component {
             posto: "1"
         };
     }
+
+    componentDidMount() {
+        if (this.props.item) {
+            let item = this.props.item
+            this.setState({
+                data: moment(item.data, "DD/MM/YYYY").format("DD/MM/YYYY"),
+                volume: item.volume.toString(),
+                periodo: item.periodo,
+                posto: item.posto,
+            })
+        }
+    }
+
     render() {
         return (
             <ScrollView>
@@ -47,11 +61,10 @@ class Medicao extends Component {
                             }}
                         />
                     </View>
-                   
+
                     <Picker
                         selectedValue={this.state.periodo}
                         style={{
-
                             backgroundColor: '#FFF',
                             margin: 10,
                             color: '#1976D2',
@@ -82,7 +95,9 @@ class Medicao extends Component {
                                     ano: moment(this.state.data, "DD/MM/YYYY").format("YYYY"),
                                     mes: moment(this.state.data, "DD/MM/YYYY").format("MM")
                                 }
-                                firebase.database().ref().child('medicao').push().set(medicao);
+                                let key = this.props.item ? this.props.item.id : firebase.database().ref('medicao').push().key;
+                                firebase.database().ref('medicao').child(key).set(medicao)
+                                Actions.pop()
                             }}
                             title="Salvar"
                             color="#1976D2"
@@ -94,4 +109,4 @@ class Medicao extends Component {
     }
 }
 
-export default Medicao
+export default Medicao;
