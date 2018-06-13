@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import { Mapper } from '../../redux';
 import { login } from '../store/login/action'
+import Input from '../components/Input';
 
 class LoginView extends Component {
 
@@ -31,14 +32,14 @@ class LoginView extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <TextInput
+        <Input
           style={styles.input}
           placeholder="Digite seu email"
           value={this.state.email}
           onChangeText={email => this.setState({ email })}
         />
 
-        <TextInput
+        <Input
           style={styles.input}
           placeholder="Digite sua senha"
           value={this.state.password}
@@ -49,8 +50,6 @@ class LoginView extends Component {
           <Text>Logar</Text>
         </TouchableOpacity>
 
-        <Text style={{ color: '#FFF' }}>{JSON.stringify(this.props.user)}</Text>
-
       </View>
     );
   }
@@ -60,7 +59,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
     backgroundColor: '#333',
     padding: 20
   },
@@ -70,16 +68,18 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
     borderColor: '#EEE',
     borderWidth: 1,
-    paddingHorizontal: 20,
-    marginBottom: 10
+    // paddingHorizontal: 20,
+    margin: 10
   },
   button: {
     height: 45,
+    width:100,
     backgroundColor: '#069',
     alignSelf: 'stretch',
-    paddingHorizontal: 20,
+    // paddingHorizontal: 20,
     justifyContent: 'center',
     alignItems: 'center',
+    margin: 10
   },
   buttonText: {
     color: '#FFF',

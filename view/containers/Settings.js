@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text } from 'react-native';
+import { StyleSheet, Text, Button } from 'react-native';
 import { Mapper } from '../../redux';
+import firebase from 'react-native-firebase';
+import { Actions } from 'react-native-router-flux';
+import Welcome from './Welcome';
 
 class Settings extends Component {
     constructor(props) {
@@ -9,7 +12,14 @@ class Settings extends Component {
 
     render() {
         return (
-            <Text>Settings</Text>
+            <Button
+                onPress={() => { 
+                    firebase.auth().signOut()
+                    Actions.reset('welcome')
+                }}
+                title="Sair"
+                color="#FF0000"
+            />
         )
     }
 }

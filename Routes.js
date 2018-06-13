@@ -12,6 +12,7 @@ import Medicao from './view/components/Medicao';
 import Settings from './view/containers/Settings';
 import LoginView from './view/containers/Login';
 import Insumos from './view/components/Insumos';
+import Welcome from './view/containers/Welcome';
 
 let color = {
     grey_800: '#DDD',
@@ -59,8 +60,10 @@ export default class Routes extends Component {
     render() {
         return (
             <Router>
+
                 <Stack key="root" hideNavBar>
-                    {/* <Scene key='login' component={LoginView} title="Login" /> */}
+                    <Scene key='welcome' hideNavBar component={Welcome} title="Welcome" />
+                    <Scene key='login' component={LoginView} title="Login" />
 
                     <Tabs key="bottombar" tabBarPosition="bottom" tabBarStyle={{ backgroundColor: '#FFF' }} labelStyle={{ fontSize: 12, fontWeight: '600' }}>
                         <Scene key='home' component={Home} title="Média" icon={this.renderTabIcon} />
@@ -76,7 +79,7 @@ export default class Routes extends Component {
                         </Stack>
 
                         <Stack key='rootaplicacao' title='Aplicações' navigationBarStyle={[styles.navbar]}>
-                        <Scene key='listaAplicacao' initial component={ListaAplicacao} title="Aplicação" icon={this.renderTabIcon}
+                            <Scene key='listaAplicacao' initial component={ListaAplicacao} title="Aplicação" icon={this.renderTabIcon}
                                 renderRightButton={() => {
                                     return <ToolbarButton icon="plus" color="#000" onPress={() => {
                                         Actions.aplicacao();
